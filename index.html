@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Verification</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+  </head>
+  <body>
+    <div class="loader" id="loader" role="status" aria-live="polite">
+      <div class="spinner"></div>
+      <p class="loader-message">Verifying payment...</p>
+    </div>
+
+    <div class="container show">
+      <div class="header">
+        <h1>Payment Verification</h1>
+        <p>Input your details</p>
+      </div>
+      <div id="content">
+        <form id="form">
+          <label for="fullname">Full Name:</label>
+          <input
+            type="text"
+            id="fullname"
+            name="Full-Name"
+            placeholder="John Doe"
+            required
+          />
+
+          <label for="matric">Matric Number:</label>
+          <input
+            type="text"
+            id="matric"
+            name="Matric-Number"
+            placeholder="24/1234"
+            required
+          />
+
+          <label for="email">Email Address:</label>
+          <input
+            type="email"
+            id="email"
+            name="Email-Address"
+            placeholder="johndoe@gmail.com"
+            required
+          />
+
+          <label for="phone">Phone Number:</label>
+          <input
+            type="tel"
+            id="phone"
+            name="Phone-Number"
+            placeholder="080123456789"
+            required
+          />
+
+          <label for="group">Group:</label>
+          <select id="group" name="Group" placeholder="Group Name" required>
+            <option value="Group">Select Group</option>
+            <option value="Group A">Group A</option>
+            <option value="Group B">Group B</option>
+            <option value="Group C">Group C</option>
+            <option value="Group D">Group D</option>
+            <option value="Group E">Group E</option>
+          </select>
+          <button type="submit">Pay Now</button>
+          <button type="button" onclick="verify()">Verify</button>
+        </form>
+      </div>
+      <div id="contact">
+        <p>Any issues, contact us</p>
+        <a href="https://wa.me/08039887341" target="_blank"
+          ><i class="fa-brands fa-whatsapp"></i
+        ></a>
+        <a href="https://www.snapchat.com/add/i_amolaa" target="_blank"
+          ><i class="fa-brands fa-snapchat"></i
+        ></a>
+        <a href="https://x.com/oladdev" target="_blank"
+          ><i class="fa-brands fa-twitter-square"></i
+        ></a>
+        <a
+          href="https://www.instagram.com/pwreshy.08?igsh=MWd5OWxzb2JieHRxZw=="
+          target="_blank"
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
+        <a
+          href="https://www.linkedin.com/in/atolagbe-precious-79a429263"
+          target="_blank"
+          ><i class="fa-brands fa-linkedin"></i
+        ></a>
+      </div>
+    </div>
+    <!--------------------------After Payment Verification--------------------------------------------->
+    <div class="payment">
+      <h2>Payment Verification</h2>
+      <p>
+        Please verify your payment by entering your reference number on the
+        receipt sent to your email. Ensure you have completed the payment
+        process.
+      </p>
+      <label for="transaction ID">Reference Number:</label>
+      <input
+        type="text"
+        id="transactionID"
+        name="transactionID"
+        placeholder="Enter your transaction ID"
+        required
+      />
+      <button id="payButton">Verify Payment</button>
+    </div>
+    <div class="congrats">
+      <h2>Congratulations!</h2>
+      <p>
+        Your payment has been successfully verified. Thank you for your
+        contribution.
+      </p>
+    </div>
+    <script>
+      // Animate section transition
+      function showSection(selector) {
+        document.querySelector(".container").classList.remove("show");
+        document.querySelector(".payment").classList.remove("show");
+        document.querySelector(".congrats").classList.remove("show");
+
+        document.querySelector(".container").style.display = "none";
+        document.querySelector(".payment").style.display = "none";
+        document.querySelector(".congrats").style.display = "none";
+
+        const el = document.querySelector(selector);
+        el.style.display = "block";
+        setTimeout(() => {
+          el.classList.add("show");
+        }, 10); // Trigger CSS transition
+      }
+
+      // Called when "Pay Now" button is clicked
+      function verify() {
+        showSection(".payment");
+      }
+
+      // Called when "Verify Payment" button is clicked
+      document
+        .getElementById("payButton")
+        .addEventListener("click", function () {
+          const reference = document
+            .getElementById("transactionID")
+            .value.trim();
+          const referencePattern = /^[0-9]{2}\/?[0-9]{3,}_\d+$/;
+
+          if (reference === "") {
+            alert("Please enter a valid transaction reference.");
+            return;
+          } else if (!referencePattern.test(reference)) {
+            alert(
+              "Invalid reference format. It should look like: 24XXXX_1234567890"
+            );
+            return;
+          }
+
+          // Show loader animation
+          const loader = document.getElementById("loader");
+          loader.classList.add("show");
+
+          // Simulate 2-second verification
+          setTimeout(() => {
+            loader.classList.remove("show");
+            showSection(".congrats");
+          }, 2000);
+        });
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>
