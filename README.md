@@ -1,4 +1,4 @@
-<h1 style="align:center"> Payment-Verification</h1>
+<h1 align="center"> Payment-Verification</h1>
 
 A simple **payment verification web app** that lets a user submit a payment, reference and validate it.
 
