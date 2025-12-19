@@ -1,4 +1,4 @@
-# Payment-Verification
+<img width="609" height="464" alt="image" src="https://github.com/user-attachments/assets/d5a803df-5ca1-4601-8dbb-c5f89b547c41" /># Payment-Verification
 
 A simple **payment verification web app** that lets a user submit a payment, reference and validate it.
 
@@ -39,7 +39,7 @@ To run this locally:
    - Or from placeholder logic in the script
 
 ## 📸 Screenshots
-![Screenshot of Payment Verification app](./path/to/screenshot.png)
+![Screenshot of Payment Verification app](./screenshot.png)
 
 ## 🛣️ Roadmap
 Future improvements could include:
